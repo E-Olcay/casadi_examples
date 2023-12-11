@@ -18,7 +18,7 @@ from Animation import TrajectoryAnimate
 
 #MPC settings
 T = 0.2 #samplig time
-N = 25  #prediction horizon Nx0.2
+N = 150  #prediction horizon Nx0.2
 rob_dim = 1 # for avodidance of obstacles.
 
 # state weights matrix (Q_X, Q_Y, Q_z)
@@ -307,7 +307,7 @@ if __name__ == '__main__':
         # print(u)
         # Compute Optimal solution trajectory
         # We obtain X values for N horizon.
-       
+        t2 = time()
         cat_states = np.dstack(( #Stack arrays in sequence depth wise (along third axis).
             cat_states,     #old one
             DM2Arr(X0)      #new one 
@@ -337,7 +337,6 @@ if __name__ == '__main__':
             ca.reshape(X0[:, -1], -1, 1)
         )
         # xx ...
-        t2 = time()
         print(mpc_iter)
         print(t2-t1) #analysis for HW implemention 
         times = np.vstack((
@@ -362,4 +361,4 @@ if __name__ == '__main__':
         
  
     #Animation
-    TrajectoryAnimate(cat_states, t, np.array([x_init, y_init, z_init, x_target, y_target, z_target]), obs_x, obs_y, obs_z, obs_dim)
+    #TrajectoryAnimate(cat_states, t, np.array([x_init, y_init, z_init, x_target, y_target, z_target]), obs_x, obs_y, obs_z, obs_dim)
